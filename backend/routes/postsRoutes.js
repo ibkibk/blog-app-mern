@@ -1,0 +1,44 @@
+import express from "express";
+import validator from "express-validator";
+import {
+  getAllPosts,
+  createAPosts,
+  updateAPosts,
+  deleteAPosts,
+  getAPost,
+  getPostsByUserIdPost,
+  likePost,
+} from "../controller/postController.js";
+import auth from "../middlewares/auth.js";
+const { check } = validator;
+
+const router = express.Router();
+
+router.get("/", getAllPosts);
+router.get("/:pid", getAPost);
+router.get("/user/:uid", getPostsByUserIdPost);
+router.use(auth);
+
+router.post(
+  "/",
+  [
+    check("title").not().isEmpty().isLength({ min: 5 }),
+    check("description").not().isEmpty().isLength({ min: 5 }),
+  ],
+  createAPosts
+);
+
+router.patch(
+  "/:pid",
+  [
+    check("title").not().isEmpty().isLength({ min: 5 }),
+    check("description").not().isEmpty().isLength({ min: 5 }),
+  ],
+  updateAPosts
+);
+
+router.patch("/:id/likePost", likePost);
+
+router.delete("/:pid", deleteAPosts);
+
+export default router;
