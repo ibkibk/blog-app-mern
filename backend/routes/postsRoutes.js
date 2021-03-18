@@ -10,6 +10,8 @@ import {
   likePost,
 } from "../controller/postController.js";
 import auth from "../middlewares/auth.js";
+// import fileUpload from "../middlewares/file-upload.js";
+
 const { check } = validator;
 
 const router = express.Router();
@@ -21,6 +23,7 @@ router.use(auth);
 
 router.post(
   "/",
+  // fileUpload.single("image"),
   [
     check("title").not().isEmpty().isLength({ min: 5 }),
     check("description").not().isEmpty().isLength({ min: 5 }),

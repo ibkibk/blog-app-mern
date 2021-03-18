@@ -35,7 +35,7 @@ const NavLinks = (props) => {
       <li>
         {user && (
           <div>
-            <NavLink to="/user">{user.name}</NavLink>
+            <NavLink to="/user/profile">Profile</NavLink>
           </div>
         )}
       </li>
@@ -45,7 +45,7 @@ const NavLinks = (props) => {
         </NavLink>
       </li>
 
-      <li>{user && <NavLink to="/u1/posts">MY POSTS</NavLink>}</li>
+      {/* <li>{user && <NavLink to="/u1/posts">MY POSTS</NavLink>}</li> */}
       <li>
         <NavLink to="/posts/new">ADD POST</NavLink>
       </li>

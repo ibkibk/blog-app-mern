@@ -18,18 +18,15 @@ const NewPost = ({ currentId, setCurrentId }) => {
     tags: "",
     image: "",
   });
-  // const post = useSelector((state) => state.posts);
+
   const posts = useSelector(
     (state) =>
       currentId && state.posts.find((theOne) => theOne._id === currentId)
   );
 
-  // console.log(posts);
   const user = JSON.parse(localStorage.getItem("profile"));
 
   useEffect(() => {
-    // dispatch(addPost(postData));
-    // dispatch(updatePost(postData));
     if (posts) {
       setPostData(posts);
     }
@@ -69,25 +66,6 @@ const NewPost = ({ currentId, setCurrentId }) => {
     clear();
     history.push("/");
   };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (user.token) {
-  //     dispatch(addPost({ ...postData, creator: user.userId, name: user.name }));
-  //     clear();
-  //   } else {
-  //     dispatch(
-  //       addPost(user.token, {
-  //         ...postData,
-  //         creator: user.userId,
-  //         name: user.name,
-  //       })
-  //     );
-  //     clear();
-  //   }
-  //   history.push("/");
-  //   dispatch(addPost());
-  // };
 
   const handleChange = (e) => {
     setPostData({ ...postData, [e.target.name]: e.target.value });
@@ -150,6 +128,7 @@ const NewPost = ({ currentId, setCurrentId }) => {
         />
         <div className={classes.fileInput}>
           <FileBase
+            // id="image"
             type="file"
             multiple={false}
             onDone={({ base64 }) => setPostData({ ...postData, image: base64 })}

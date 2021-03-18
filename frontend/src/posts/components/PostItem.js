@@ -10,20 +10,20 @@ import { useHistory } from "react-router-dom";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 
 const PostItem = (props) => {
-  const history = useHistory();
+  // const history = useHistory();
 
   const dispatch = useDispatch();
 
   const user = JSON.parse(localStorage.getItem("profile"));
 
-  const handleSubmmit = () => {
-    dispatch(deletePost(props.id));
-    history.push("/");
-  };
+  // const handleSubmmit = () => {
+  //   dispatch(deletePost(props.id));
+  //   history.push("/");
+  // };
 
-  const handleEdit = () => {
-    history.push("/posts/new");
-  };
+  // const handleEdit = () => {
+  //   history.push("/posts/new");
+  // };
 
   const Likes = () => {
     if (props.likes?.length > 0) {
@@ -78,7 +78,7 @@ const PostItem = (props) => {
           >
             <Likes />
           </Button>
-          {user?.userId === props.creator && (
+          {/* {user?.userId === props.creator && (
             <div>
               <Button onClick={() => handleEdit(props.setCurrentId(props.id))}>
                 EDIT
@@ -87,7 +87,7 @@ const PostItem = (props) => {
                 DELETE
               </Button>
             </div>
-          )}
+          )} */}
         </div>
       </Card>
     </li>

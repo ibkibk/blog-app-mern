@@ -50,6 +50,7 @@ export const signup = asyncHandler(async (req, res, next) => {
     message: "User Signed up",
     name: newUser.name,
     userId: newUser._id,
+    posts: newUser.posts,
     email: newUser.email,
     token: token,
   });
@@ -76,6 +77,7 @@ export const login = asyncHandler(async (req, res, next) => {
     userId: oldUser._id,
     email: oldUser.email,
     token: token,
+    posts: oldUser.posts,
     name: oldUser.name,
   });
 });

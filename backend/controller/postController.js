@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import asyncHandler from "../middlewares/async.js";
 import HttpError from "../middlewares/httpError.js";
 import validator from "express-validator";
-
+// import fs from "fs";
 const { validationResult } = validator;
 
 export const getAllPosts = asyncHandler(async (req, res, next) => {
@@ -51,6 +51,7 @@ export const createAPosts = asyncHandler(async (req, res, next) => {
       description,
       tags,
       image,
+      // image: req.file.path,
       creator,
       createdAt: new Date().toISOString(),
     });
@@ -113,6 +114,7 @@ export const deleteAPosts = asyncHandler(async (req, res, next) => {
     const error = new HttpError("Could not find post for this id.", 404);
     return next(error);
   }
+  // const imagePath = place.image;
 
   const sess = await mongoose.startSession();
   sess.startTransaction();
@@ -120,6 +122,10 @@ export const deleteAPosts = asyncHandler(async (req, res, next) => {
   post.creator.posts.pull(post);
   await post.creator.save({ session: sess });
   await sess.commitTransaction();
+
+  // fs.unlink(imagePath, (err) => {
+  //   console.log(err);
+  // });
 
   res.status(200).json({ message: "post has been deleted." });
 });

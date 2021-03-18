@@ -1,33 +1,22 @@
-import React from 'react';
+// import React from "react";
 
-import UserItem from './UserItem';
-import Card from '../../shared/components/UIElements/Card';
-import './UsersList.css';
+// import UserItem from "./UserItem";
+// import "./UsersList.css";
+// import { useSelector } from "react-redux";
+// const user = JSON.parse(localStorage.getItem("profile"));
 
-const UsersList = props => {
-  if (props.items.length === 0) {
-    return (
-      <div className="center">
-        <Card>
-          <h2>No users found.</h2>
-        </Card>
-      </div>
-    );
-  }
+// const UsersList = (props) => {
+//   const userPost = useSelector((state) =>
+//     state.posts.filter((post) => post.creator === user.userId)
+//   );
 
-  return (
-    <ul className="users-list">
-      {props.items.map(user => (
-        <UserItem
-          key={user.id}
-          id={user.id}
-          image={user.image}
-          name={user.name}
-          placeCount={user.places}
-        />
-      ))}
-    </ul>
-  );
-};
+//   return (
+//     <ul className="users-list">
+//       {userPost.map((post) => (
+//         <UserItem userPost={post.userPost} user={post.user} />
+//       ))}
+//     </ul>
+//   );
+// };
 
-export default UsersList;
+// export default UsersList;

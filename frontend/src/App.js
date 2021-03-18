@@ -7,12 +7,14 @@ import {
 } from "react-router-dom";
 import Posts from "./posts/pages/Posts";
 import { useDispatch } from "react-redux";
-import { getPosts, addPost, updatePost } from "./redux/actions/postAction";
-// import Users from "./user/pages/Users";
+import { getPosts } from "./redux/actions/postAction";
+import { signin, signup } from "./redux/actions/authAction";
+import Users from "./user/pages/Users";
 import NewPost from "./posts/pages/NewPost";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import UserPosts from "./posts/pages/UserPosts";
 import Login from "./user/pages/Login";
+import UserItem from "./user/components/UserItem";
 
 const App = () => {
   const [currentId, setCurrentId] = useState(null);
@@ -20,7 +22,8 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getPosts());
-    dispatch(updatePost());
+    // dispatch(signin());
+    // dispatch(signup());
   }, [currentId, dispatch]);
 
   return (
@@ -28,15 +31,16 @@ const App = () => {
       <MainNavigation />
       <main>
         <Switch>
-          {/* <Route path="/" exact>
-            <Users />
-          </Route> */}
+          <Route path="/user/profile" exact>
+            {/* <Users /> */}
+            <UserItem setCurrentId={setCurrentId} />
+          </Route>
           <Route path="/" exact>
             <Posts setCurrentId={setCurrentId} />
           </Route>
-          <Route path="/:userId/posts" exact>
+          {/* <Route path="/:userId/posts" exact>
             <UserPosts />
-          </Route>
+          </Route> */}
 
           <Route path="/posts/new" exact>
             <NewPost currentId={currentId} setCurrentId={setCurrentId} />
