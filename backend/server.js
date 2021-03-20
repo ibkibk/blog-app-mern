@@ -4,15 +4,15 @@ import mongoose from "mongoose";
 import cors from "cors";
 import postsRoutes from "./routes/postsRoutes.js";
 import usersRoutes from "./routes/usersRoutes.js";
-import fs from "fs";
-import path from "path";
+// import fs from "fs";
+// import path from "path";
 const app = express();
 
 dotenv.config({ path: "../config.env" });
 
 app.use(cors());
 app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 
 // app.use("/uploads/images", express.static(path.join("uploads", "images")));
 

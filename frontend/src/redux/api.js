@@ -21,6 +21,5 @@ export const deletePost = (id) => API.delete(`/posts/${id}`);
 
 export const signIn = (formData) => API.post("/users/login", formData);
 export const signUp = (formData) => API.post("/users/signup", formData);
-export const updateUser = (id, userInfo) =>
-  API.post(`/user/update/${id}`, userInfo);
-export const deleteUser = (id) => API.post(`/user/delete/${id}`);
+export const updateUser = (formData) => API.patch("/users/profiles", formData);
+export const deleteUser = (id) => API.post(`/users/delete/${id}`);

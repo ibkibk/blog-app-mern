@@ -128,7 +128,7 @@ const NewPost = ({ currentId, setCurrentId }) => {
         />
         <div className={classes.fileInput}>
           <FileBase
-            // id="image"
+            id="image"
             type="file"
             multiple={false}
             onDone={({ base64 }) => setPostData({ ...postData, image: base64 })}

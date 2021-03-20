@@ -18,7 +18,6 @@ export default makeStyles((theme) => ({
     textDecoration: "none",
   },
   form: {
-    display: "flex",
     padding: "10px",
     flexWrap: "wrap",
     justifyContent: "center",
@@ -26,6 +25,11 @@ export default makeStyles((theme) => ({
   fileInput: {
     width: "97%",
     margin: "10px 0",
+  },
+  fileInputs: {
+    width: "auto",
+    margin: "10px 0",
+    marginLeft: "90px",
   },
   buttonSubmit: {
     marginBottom: 10,

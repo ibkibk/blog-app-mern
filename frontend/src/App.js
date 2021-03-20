@@ -8,11 +8,8 @@ import {
 import Posts from "./posts/pages/Posts";
 import { useDispatch } from "react-redux";
 import { getPosts } from "./redux/actions/postAction";
-import { signin, signup } from "./redux/actions/authAction";
-import Users from "./user/pages/Users";
 import NewPost from "./posts/pages/NewPost";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
-import UserPosts from "./posts/pages/UserPosts";
 import Login from "./user/pages/Login";
 import UserItem from "./user/components/UserItem";
 
@@ -22,8 +19,6 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getPosts());
-    // dispatch(signin());
-    // dispatch(signup());
   }, [currentId, dispatch]);
 
   return (

@@ -12,6 +12,7 @@ import Container from "@material-ui/core/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { signin, signup } from "../../redux/actions/authAction";
 import { useHistory } from "react-router-dom";
+import FileBase from "react-file-base64";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -38,6 +39,7 @@ const initialState = {
   email: "",
   password: "",
   confirmPassword: "",
+  image: "",
 };
 
 const Login = () => {
@@ -85,7 +87,7 @@ const Login = () => {
           {isSignup ? "Sign up" : "Sign in"}
         </Typography>
         <Typography style={{ color: "red" }} component="h1" variant="h5">
-          {errors.error}
+          {errors?.error}
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           {isSignup && (
@@ -131,17 +133,30 @@ const Login = () => {
             // value={formData.password}
           />
           {isSignup && (
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="confirmPassword"
-              label="Repeat Password"
-              onChange={handleChange}
-              type="password"
-              // value={formData.confirmPassword}
-            />
+            <div>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="confirmPassword"
+                label="Repeat Password"
+                onChange={handleChange}
+                type="password"
+                // value={formData.confirmPassword}
+              />
+              <div className={classes.fileInput}>
+                <FileBase
+                  id="image"
+                  name="image"
+                  type="file"
+                  multiple={false}
+                  onDone={({ base64 }) => setForm({ ...form, image: base64 })}
+
+                  // onDone={({ base64 }) => setForm({...initialState,image:base64}))}
+                />
+              </div>
+            </div>
           )}
 
           <Button

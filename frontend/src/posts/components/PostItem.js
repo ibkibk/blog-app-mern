@@ -5,25 +5,13 @@ import Button from "../../shared/components/FormElements/Button";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import moment from "moment";
 import { useDispatch } from "react-redux";
-import { deletePost, likePost } from "../../redux/actions/postAction";
-import { useHistory } from "react-router-dom";
+import { likePost } from "../../redux/actions/postAction";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 
 const PostItem = (props) => {
-  // const history = useHistory();
-
   const dispatch = useDispatch();
 
   const user = JSON.parse(localStorage.getItem("profile"));
-
-  // const handleSubmmit = () => {
-  //   dispatch(deletePost(props.id));
-  //   history.push("/");
-  // };
-
-  // const handleEdit = () => {
-  //   history.push("/posts/new");
-  // };
 
   const Likes = () => {
     if (props.likes?.length > 0) {

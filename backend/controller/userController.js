@@ -26,6 +26,7 @@ export const signup = asyncHandler(async (req, res, next) => {
   const { email, password, name, image, confirmPassword } = req.body;
 
   const userExist = await User.findOne({ email });
+
   if (userExist) return res.status(400).json({ error: "User already exists" });
 
   if (password !== confirmPassword)
@@ -53,6 +54,8 @@ export const signup = asyncHandler(async (req, res, next) => {
     posts: newUser.posts,
     email: newUser.email,
     token: token,
+    image: newUser.image,
+    // password: newUser.password,
   });
 });
 
@@ -79,5 +82,49 @@ export const login = asyncHandler(async (req, res, next) => {
     token: token,
     posts: oldUser.posts,
     name: oldUser.name,
+    image: oldUser.image,
+
+    // password: oldUser.password,
   });
+});
+
+export const editUser = asyncHandler(async (req, res, next) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors);
+      return next(new HttpError("invalid inputs please check you data", 422));
+    }
+    const userIds = req.userData.userId;
+    // console.log(userIds);
+
+    const user = await User.findById(userIds);
+    console.log(user);
+    if (user) {
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+      user.image = req.body.image || user.image;
+      console.log(req.body.image);
+      const { password } = req.body;
+      if (password) {
+        let passwords = await bcrypt.hash(password, 12);
+        user.password = passwords || user.password;
+      }
+
+      const updatedUserProfile = await user.save();
+      console.log(updatedUserProfile);
+      res.status(200).json({
+        message: "User Logged in",
+        userId: updatedUserProfile._id,
+        email: updatedUserProfile.email,
+        token: req.headers.authorization.split(" ")[1],
+        posts: updatedUserProfile.posts,
+        name: updatedUserProfile.name,
+        image: updatedUserProfile.image,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(404).json(error);
+  }
 });

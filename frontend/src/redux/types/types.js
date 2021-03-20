@@ -9,3 +9,5 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 export const REGISTER_FAIL = "REGISTER_FAIL";
 export const UPDATE_USER = "UPDATE_USER";
 export const DELETE_USER = "DELETE_USER";
+export const UPDATED_USER = "UPDATED_USER";
+export const UPDATED_USER_FAIL = "UPDATED_USER_FAIL";
