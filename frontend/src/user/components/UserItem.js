@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import Button from "../../shared/components/FormElements/Button";
 import Avatar from "../../shared/components/UIElements/Avatar";
 import Card from "../../shared/components/UIElements/Card";
@@ -9,7 +8,6 @@ import moment from "moment";
 import { deletePost } from "../../redux/actions/postAction";
 import { editProfile } from "../../redux/actions/authAction";
 import FileBase from "react-file-base64";
-
 import { useHistory } from "react-router-dom";
 import { TextField, Typography, Paper } from "@material-ui/core";
 import useStyles from "../../posts/pages/styles";
@@ -74,17 +72,6 @@ const UserItem = (props) => {
           <div className="user-item__info">
             <div className="user-item__image">
               <Avatar image={image} alt={user?.name} />
-              {/* <div className={classes.fileInput}>
-                <FileBase
-                  style={{ marginBottom: "20px" }}
-                  id="image"
-                  type="file"
-                  multiple={false}
-                  // onDone={({ base64 }) =>
-                  //   setPostData({ ...postData, image: base64 })
-                  // }
-                />
-              </div> */}
             </div>
             <div className={classes.fileInputs}>
               <FileBase
@@ -92,8 +79,7 @@ const UserItem = (props) => {
                 id="image"
                 type="file"
                 multiple={false}
-                value={image}
-                onDone={({ base64 }) => setImage({ image: base64 })}
+                onDone={({ base64 }) => setImage(base64)}
               />
             </div>
             <TextField
@@ -105,8 +91,7 @@ const UserItem = (props) => {
               onChange={(e) => setName(e.target.value)}
               value={name}
             />
-            {/* {user?.name} */}
-            {/* </TextField> */}
+
             <TextField
               name="email"
               required
@@ -116,8 +101,7 @@ const UserItem = (props) => {
               onChange={(e) => setEmail(e.target.value)}
               value={email}
             />
-            {/* {user?.email} */}
-            {/* </TextField> */}
+
             <TextField
               name="password"
               required
@@ -140,11 +124,8 @@ const UserItem = (props) => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmPassword}
             />
-            {/* {user?.password} */}
-            {/* </TextField> */}
 
             <Button onClick={userEditHandler}>Update</Button>
-            {/* <TextField style={{ marginTop: "20px" }}></TextField> */}
           </div>
         </form>
       </Paper>
