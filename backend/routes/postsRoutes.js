@@ -23,7 +23,6 @@ router.use(auth);
 
 router.post(
   "/",
-  // fileUpload.single("image"),
   [
     check("title").not().isEmpty().isLength({ min: 5 }),
     check("description").not().isEmpty().isLength({ min: 5 }),

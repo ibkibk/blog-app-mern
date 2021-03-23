@@ -26,19 +26,3 @@ const fileUpload = multer({
 });
 
 export default fileUpload;
-
-// const storage = multer.diskStorage({
-//   destination: "../uploads/images",
-//   filename: function (req, file, cb) {
-//     cb(
-//       null,
-//       file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-//     );
-//   },
-// });
-
-// const upload = multer({
-//   storage: storage,
-// });
-
-// export default upload;

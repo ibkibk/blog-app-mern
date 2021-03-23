@@ -83,8 +83,6 @@ export const login = asyncHandler(async (req, res, next) => {
     posts: oldUser.posts,
     name: oldUser.name,
     image: oldUser.image,
-
-    // password: oldUser.password,
   });
 });
 
@@ -96,7 +94,6 @@ export const editUser = asyncHandler(async (req, res, next) => {
       return next(new HttpError("invalid inputs please check you data", 422));
     }
     const userIds = req.userData.userId;
-    // console.log(userIds);
 
     const user = await User.findById(userIds);
     console.log(user);

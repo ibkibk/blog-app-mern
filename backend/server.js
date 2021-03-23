@@ -14,26 +14,17 @@ app.use(cors({ origin: true }));
 app.use(express.json({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 
-// app.use("/uploads/images", express.static(path.join("uploads", "images")));
-
 app.use("/posts", postsRoutes);
 app.use("/users", usersRoutes);
 
-app.get("/", (req, res) => {
-  console.log("hello from server");
-});
-// app.use((error, req, res, next) => {
-//   if (req.file) {
-//     fs.unlink(req.file.path, (err) => {
-//       console.log(err);
-//     });
-//   }
-//   if (res.headerSent) {
-//     return next(error);
-//   }
-//   res.status(error.code || 500);
-//   res.json({ message: error.message || "An unknown error occurred!" });
-// });
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("frontend/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+  });
+}
+
 const DB = process.env.MongoDB;
 mongoose
   .connect(DB, {
