@@ -1,22 +1,15 @@
 import React from "react";
-
-import Card from "../../shared/components/UIElements/Card";
+// import Card from "../../shared/components/UIElements/Card";
 import PostItem from "./PostItem";
 import "./PostsList.css";
+import { Grid, CircularProgress } from "@material-ui/core";
 
 const PostsList = (props) => {
-  if (props.items?.length === 0) {
-    return (
-      <div className="post-list center">
-        <Card>
-          <h2>No post found. Maybe create one?</h2>
-          <button to="/login">Share Post</button>
-        </Card>
-      </div>
-    );
-  }
-
-  return (
+  return !props.items.length ? (
+    <Grid container alignItems="center" justify="center">
+      <CircularProgress color="primary" style={{ marginTop: "100px" }} />
+    </Grid>
+  ) : (
     <ul className="post-list">
       {props.items?.map((post) => (
         <PostItem
