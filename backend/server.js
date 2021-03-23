@@ -10,7 +10,7 @@ const app = express();
 
 dotenv.config({ path: "../config.env" });
 
-app.use(cors());
+app.use(cors({ origin: true }));
 app.use(express.json({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 
@@ -19,6 +19,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/posts", postsRoutes);
 app.use("/users", usersRoutes);
 
+app.get("/", (req, res) => {
+  console.log("hello from server");
+});
 // app.use((error, req, res, next) => {
 //   if (req.file) {
 //     fs.unlink(req.file.path, (err) => {
