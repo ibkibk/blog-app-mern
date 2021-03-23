@@ -4,8 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import postsRoutes from "./routes/postsRoutes.js";
 import usersRoutes from "./routes/usersRoutes.js";
-// import fs from "fs";
-// import path from "path";
+import path from "path";
 const app = express();
 
 dotenv.config({ path: "../config.env" });
@@ -37,8 +36,8 @@ mongoose
     console.log("database connection successful");
   });
 
-const PORT = process.env.PORT || 3001;
+const port = process.env.PORT || 3001;
 
-app.listen(PORT, () => {
-  console.log(`hello from server on PORT ${PORT}`);
+app.listen(port, () => {
+  console.log(`hello from server on PORT ${port}`);
 });

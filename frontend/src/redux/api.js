@@ -1,8 +1,6 @@
 import axios from "axios";
 
-const API = axios.create({
-  baseURL: "https://blogger-app-mern.herokuapp.com/",
-});
+const API = axios.create({ baseURL: "http://localhost:3006" });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {

@@ -34,7 +34,7 @@ const UserItem = (props) => {
   );
 
   useEffect(() => {
-    if (user.userId) {
+    if (user?.userId) {
       dispatch(
         editProfile({
           ...userData,
