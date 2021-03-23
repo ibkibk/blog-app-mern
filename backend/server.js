@@ -11,7 +11,7 @@ const app = express();
 dotenv.config({ path: "../config.env" });
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 
 // app.use("/uploads/images", express.static(path.join("uploads", "images")));

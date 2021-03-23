@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { NavLink, useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import decode from "jwt-decode";
 import * as actionType from "../../../redux/types/types";
-
 import "./NavLinks.css";
 
 const NavLinks = (props) => {
@@ -12,11 +11,11 @@ const NavLinks = (props) => {
   const location = useLocation();
   const history = useHistory();
 
-  const logout = () => {
+  const logout = useCallback(() => {
     dispatch({ type: actionType.LOGOUT });
     history.push("/auth");
     setUser(null);
-  };
+  }, [history, dispatch]);
 
   useEffect(() => {
     const token = user?.token;
@@ -26,9 +25,8 @@ const NavLinks = (props) => {
 
       if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
-
     setUser(JSON.parse(localStorage.getItem("profile")));
-  }, [location]);
+  }, [location, user?.token, logout, dispatch]);
 
   return (
     <ul className="nav-links">
@@ -44,8 +42,6 @@ const NavLinks = (props) => {
           ALL POSTS
         </NavLink>
       </li>
-
-      {/* <li>{user && <NavLink to="/u1/posts">MY POSTS</NavLink>}</li> */}
       <li>
         <NavLink to="/posts/new">ADD POST</NavLink>
       </li>

@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 const Posts = (props) => {
   const POSTS = useSelector((state) => state.posts);
-
   return <PostsList items={POSTS} setCurrentId={props.setCurrentId} />;
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../shared/components/FormElements/Button";
 import Avatar from "../../shared/components/UIElements/Avatar";
 import Card from "../../shared/components/UIElements/Card";
@@ -13,15 +13,16 @@ import { TextField, Typography, Paper } from "@material-ui/core";
 import useStyles from "../../posts/pages/styles";
 
 const user = JSON.parse(localStorage.getItem("profile"));
-console.log(user);
-
 const UserItem = (props) => {
-  const [name, setName] = useState(user?.name);
-  const [email, setEmail] = useState(user?.email);
-  const [image, setImage] = useState(user?.image);
-  const [password, setPassword] = useState(user?.password);
-  const [confirmPassword, setConfirmPassword] = useState(user?.confirmPassword);
   const [message, setMessage] = useState(null);
+
+  const [userData, setUserData] = useState({
+    name: user?.name,
+    email: user?.email,
+    image: user?.image,
+    password: user?.password,
+    confirmPassword: user?.confirmPassword,
+  });
 
   const history = useHistory();
   const classes = useStyles();
@@ -31,7 +32,18 @@ const UserItem = (props) => {
   const userPost = useSelector((state) =>
     state.posts.filter((post) => post?.creator === user?.userId)
   );
-  console.log(userPost);
+
+  useEffect(() => {
+    if (user.userId) {
+      dispatch(
+        editProfile({
+          ...userData,
+          _id: user.userId,
+          token: user.token,
+        })
+      );
+    }
+  }, [dispatch, userData]);
 
   const handleEdit = () => {
     history.push("/posts/new");
@@ -39,28 +51,21 @@ const UserItem = (props) => {
 
   const userEditHandler = (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
+    if (userData.password !== userData.confirmPassword) {
       setMessage("Passwords do not match");
     } else {
       dispatch(
         editProfile({
+          ...userData,
           _id: user.userId,
-          name,
-          email,
-          password,
-          image,
           token: user.token,
         })
       );
     }
-    console.log({
-      _id: user.userId,
-      name,
-      email,
-      password,
-      token: user.token,
-      image,
-    });
+  };
+
+  const handleChange = (e) => {
+    setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
   return (
@@ -71,7 +76,7 @@ const UserItem = (props) => {
 
           <div className="user-item__info">
             <div className="user-item__image">
-              <Avatar image={image} alt={user?.name} />
+              <Avatar image={userData.image} alt={user?.name} />
             </div>
             <div className={classes.fileInputs}>
               <FileBase
@@ -79,7 +84,9 @@ const UserItem = (props) => {
                 id="image"
                 type="file"
                 multiple={false}
-                onDone={({ base64 }) => setImage(base64)}
+                onDone={({ base64 }) =>
+                  setUserData({ ...userData, image: base64 })
+                }
               />
             </div>
             <TextField
@@ -88,8 +95,8 @@ const UserItem = (props) => {
               variant="outlined"
               label="Name"
               fullWidth
-              onChange={(e) => setName(e.target.value)}
-              value={name}
+              onChange={handleChange}
+              value={userData.name}
             />
 
             <TextField
@@ -98,8 +105,8 @@ const UserItem = (props) => {
               variant="outlined"
               label="Email"
               fullWidth
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
+              onChange={handleChange}
+              value={userData.email}
             />
 
             <TextField
@@ -110,8 +117,8 @@ const UserItem = (props) => {
               fullWidth
               type="password"
               style={{ marginTop: "20px" }}
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
+              onChange={handleChange}
+              value={userData.password}
             />
             <TextField
               name="confirmPassword"
@@ -121,8 +128,8 @@ const UserItem = (props) => {
               fullWidth
               type="password"
               style={{ marginTop: "20px" }}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              value={confirmPassword}
+              onChange={handleChange}
+              value={userData.confirmPassword}
             />
 
             <Button onClick={userEditHandler}>Update</Button>
@@ -136,17 +143,17 @@ const UserItem = (props) => {
         {userPost.map((item) => {
           return (
             <div style={{ marginBottom: "20px" }} key={item._id}>
-              <div className="place-item__image">
+              <div className="post-item__image">
                 <img src={item.image} alt={item.title} />
               </div>{" "}
-              <div className="place-item__info">
+              <div className="post-item__info">
                 <h2>{item.name}</h2>
                 <p>{moment(item.createdAt).fromNow()}</p>
                 <h2>{item.title}</h2>
                 <p>{item.description}</p>
                 <p>{item.tags?.map((tag) => `#${tag} `)}</p>
               </div>
-              <div className="place-item__actions">
+              <div className="post-item__actions">
                 <div>
                   <Button
                     onClick={() => handleEdit(props.setCurrentId(item._id))}

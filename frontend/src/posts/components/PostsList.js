@@ -7,7 +7,7 @@ import "./PostsList.css";
 const PostsList = (props) => {
   if (props.items?.length === 0) {
     return (
-      <div className="place-list center">
+      <div className="post-list center">
         <Card>
           <h2>No post found. Maybe create one?</h2>
           <button to="/login">Share Post</button>
@@ -17,7 +17,7 @@ const PostsList = (props) => {
   }
 
   return (
-    <ul className="place-list">
+    <ul className="post-list">
       {props.items?.map((post) => (
         <PostItem
           setCurrentId={props.setCurrentId}

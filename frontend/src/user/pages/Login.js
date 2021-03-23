@@ -102,7 +102,6 @@ const Login = () => {
                 label="Full Name"
                 onChange={handleChange}
                 autoFocus
-                // value={formData.fullName}
               />
             </>
           )}
@@ -117,7 +116,6 @@ const Login = () => {
             name="email"
             autoComplete="email"
             autoFocus
-            // value={formData.email}
           />
           <TextField
             variant="outlined"
@@ -130,7 +128,6 @@ const Login = () => {
             type="password"
             id="password"
             autoComplete="current-password"
-            // value={formData.password}
           />
           {isSignup && (
             <div>
@@ -143,7 +140,6 @@ const Login = () => {
                 label="Repeat Password"
                 onChange={handleChange}
                 type="password"
-                // value={formData.confirmPassword}
               />
               <div className={classes.fileInput}>
                 <FileBase
@@ -152,8 +148,6 @@ const Login = () => {
                   type="file"
                   multiple={false}
                   onDone={({ base64 }) => setForm({ ...form, image: base64 })}
-
-                  // onDone={({ base64 }) => setForm({...initialState,image:base64}))}
                 />
               </div>
             </div>

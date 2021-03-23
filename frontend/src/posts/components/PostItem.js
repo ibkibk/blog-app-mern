@@ -41,24 +41,19 @@ const PostItem = (props) => {
   };
 
   return (
-    <li className="place-item">
-      <Card className="place-item__content">
-        <div className="place-item__image">
+    <li className="post-item">
+      <Card className="post-item__content">
+        <div className="post-item__image">
           <img src={props.image} alt={props.title} />
         </div>
-        <div className="place-item__info">
+        <div className="post-item__info">
           <h2>{props.name}</h2>
           <p>{moment(props.createdAt).fromNow()}</p>
           <h2>{props.title}</h2>
           <p>{props.description}</p>
           <p>{props.tags?.map((tag) => `#${tag} `)}</p>
         </div>
-        <div className="place-item__actions">
-          {/* <Button inverse>
-            <ThumbUpAltIcon fontSize="small" />
-            LIKE
-            {props.likes}
-          </Button> */}
+        <div className="post-item__actions">
           <Button
             size="small"
             color="primary"
@@ -66,16 +61,6 @@ const PostItem = (props) => {
           >
             <Likes />
           </Button>
-          {/* {user?.userId === props.creator && (
-            <div>
-              <Button onClick={() => handleEdit(props.setCurrentId(props.id))}>
-                EDIT
-              </Button>
-              <Button danger onClick={handleSubmmit}>
-                DELETE
-              </Button>
-            </div>
-          )} */}
         </div>
       </Card>
     </li>

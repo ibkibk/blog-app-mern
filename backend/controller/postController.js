@@ -36,6 +36,8 @@ export const getPostsByUserIdPost = asyncHandler(async (req, res, next) => {
 });
 
 export const createAPosts = asyncHandler(async (req, res, next) => {
+  console.log(req.file);
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     console.log(errors);
@@ -44,7 +46,9 @@ export const createAPosts = asyncHandler(async (req, res, next) => {
 
   try {
     const { title, description, tags, image, creator, name } = req.body;
-
+    // console.log(req.body);
+    // console.log(req.file);
+    // if (!req.file) return res.send("Please upload a file");
     const createdPost = new PostMessage({
       name,
       title,
