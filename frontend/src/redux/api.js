@@ -5,7 +5,6 @@ dotenv.config({ path: "../.env" });
 console.log(process.env.REACT_APP_API);
 
 const API = axios.create({ baseURL: process.env.REACT_APP_API });
-// const API = axios.create({ baseURL: process.env.API_KEY });
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {
     req.headers.authorization = `Bearer ${

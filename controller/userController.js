@@ -55,7 +55,6 @@ export const signup = asyncHandler(async (req, res, next) => {
     email: newUser.email,
     token: token,
     image: newUser.image,
-    // password: newUser.password,
   });
 });
 
