@@ -13,16 +13,14 @@ import { TextField, Typography, Paper } from "@material-ui/core";
 import useStyles from "../../posts/pages/styles";
 
 const user = JSON.parse(localStorage.getItem("profile"));
-const UserItem = (props) => {
-  const [message, setMessage] = useState(null);
 
-  const [userData, setUserData] = useState({
-    name: user?.name,
-    email: user?.email,
-    image: user?.image,
-    password: user?.password,
-    confirmPassword: user?.confirmPassword,
-  });
+const UserItem = (props) => {
+  const [name, setName] = useState(user?.name);
+  const [email, setEmail] = useState(user?.email);
+  const [image, setImage] = useState(user?.image);
+  const [password, setPassword] = useState(user?.password);
+  const [confirmPassword, setConfirmPassword] = useState(user?.confirmPassword);
+  const [message, setMessage] = useState(null);
 
   const history = useHistory();
   const classes = useStyles();
@@ -34,38 +32,30 @@ const UserItem = (props) => {
   );
 
   useEffect(() => {
-    if (user?.userId) {
-      dispatch(
-        editProfile({
-          ...userData,
-          _id: user.userId,
-          token: user.token,
-        })
-      );
+    if (userPost) {
+      editProfile(userPost);
     }
-  }, [dispatch, userData]);
-
+  }, [userPost]);
   const handleEdit = () => {
     history.push("/posts/new");
   };
 
   const userEditHandler = (e) => {
     e.preventDefault();
-    if (userData.password !== userData.confirmPassword) {
+    if (password !== confirmPassword) {
       setMessage("Passwords do not match");
     } else {
       dispatch(
         editProfile({
-          ...userData,
           _id: user.userId,
+          name,
+          email,
+          password,
+          image,
           token: user.token,
         })
       );
     }
-  };
-
-  const handleChange = (e) => {
-    setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
   return (
@@ -76,7 +66,7 @@ const UserItem = (props) => {
 
           <div className="user-item__info">
             <div className="user-item__image">
-              <Avatar image={userData.image} alt={user?.name} />
+              <Avatar image={image} alt={user?.name} />
             </div>
             <div className={classes.fileInputs}>
               <FileBase
@@ -84,9 +74,7 @@ const UserItem = (props) => {
                 id="image"
                 type="file"
                 multiple={false}
-                onDone={({ base64 }) =>
-                  setUserData({ ...userData, image: base64 })
-                }
+                onDone={({ base64 }) => setImage(base64)}
               />
             </div>
             <TextField
@@ -95,8 +83,8 @@ const UserItem = (props) => {
               variant="outlined"
               label="Name"
               fullWidth
-              onChange={handleChange}
-              value={userData.name}
+              onChange={(e) => setName(e.target.value)}
+              value={name}
             />
 
             <TextField
@@ -105,8 +93,8 @@ const UserItem = (props) => {
               variant="outlined"
               label="Email"
               fullWidth
-              onChange={handleChange}
-              value={userData.email}
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
             />
 
             <TextField
@@ -117,8 +105,8 @@ const UserItem = (props) => {
               fullWidth
               type="password"
               style={{ marginTop: "20px" }}
-              onChange={handleChange}
-              value={userData.password}
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
             />
             <TextField
               name="confirmPassword"
@@ -128,8 +116,8 @@ const UserItem = (props) => {
               fullWidth
               type="password"
               style={{ marginTop: "20px" }}
-              onChange={handleChange}
-              value={userData.confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              value={confirmPassword}
             />
 
             <Button onClick={userEditHandler}>Update</Button>
@@ -139,10 +127,14 @@ const UserItem = (props) => {
       <h3 style={{ marginTop: "20px", textAlign: "center" }}>
         {userPost.length} {userPost.length === 1 ? "Post" : "Posts"}
       </h3>
-      <Card className="user-item__content">
-        {userPost.map((item) => {
-          return (
-            <div style={{ marginBottom: "20px" }} key={item._id}>
+      {userPost.map((item) => {
+        return (
+          <Card
+            className="post-item__content"
+            style={{ marginBottom: "20px" }}
+            key={item._id}
+          >
+            <div style={{ marginBottom: "5px" }} key={item._id}>
               <div className="post-item__image">
                 <img src={item.image} alt={item.title} />
               </div>{" "}
@@ -166,9 +158,9 @@ const UserItem = (props) => {
                 </div>
               </div>
             </div>
-          );
-        })}
-      </Card>
+          </Card>
+        );
+      })}
     </li>
   );
 };

@@ -31,13 +31,12 @@ export const signup = (formData, router) => async (dispatch) => {
   }
 };
 
-export const editProfile = (formData, router) => async (dispatch) => {
+export const editProfile = (formData) => async (dispatch) => {
   try {
     const { data } = await api.updateUser(formData);
 
     dispatch({ type: UPDATED_USER, data });
     console.log(data);
-    // router.push("/");
   } catch (error) {
     dispatch({ type: UPDATED_USER_FAIL, payload: error });
     console.log(error);

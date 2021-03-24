@@ -1,5 +1,4 @@
 import React from "react";
-// import Card from "../../shared/components/UIElements/Card";
 import PostItem from "./PostItem";
 import "./PostsList.css";
 import { Grid, CircularProgress } from "@material-ui/core";

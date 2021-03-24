@@ -39,21 +39,21 @@ const NavLinks = (props) => {
       </li>
       <li>
         <NavLink to="/" exact>
-          ALL POSTS
+          All Posts
         </NavLink>
       </li>
       <li>
-        <NavLink to="/posts/new">ADD POST</NavLink>
+        <NavLink to="/posts/new">Add Post</NavLink>
       </li>
       <li>
         {user ? (
           <div>
             <NavLink to="/" onClick={logout}>
-              LOGOUT
+              Logout
             </NavLink>
           </div>
         ) : (
-          <NavLink to="/login">LOGIN</NavLink>
+          <NavLink to="/login">Login</NavLink>
         )}
       </li>
     </ul>
